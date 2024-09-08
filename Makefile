@@ -15,7 +15,7 @@ pre-test:
 test: pre-test
 	go vet -mod=vendor $(shell go list ./...)
 	go vet -mod=vendor -vettool=$(shell which shadow) $(shell go list ./...)
-	golangci-lint run main.go
+	golangci-lint run -v
 
 clean:
 	rm -rf build
