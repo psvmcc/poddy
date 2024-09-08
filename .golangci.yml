@@ -2,12 +2,11 @@ run:
   timeout: 5m
   output:
     format: tab
-  skip-dirs:
-    - vendor
 
 linters-settings:
   govet:
-    check-shadowing: true
+    enable:
+      - shadow
   golint:
     min-confidence: 0.1
   maligned:
@@ -33,12 +32,13 @@ linters-settings:
 
 linters:
   enable:
-    - megacheck
     - revive
     - govet
     - unconvert
-    - megacheck
-    - gas
+    - gosimple
+    - staticcheck
+    - unused
+    - gosec
     - dupl
     - misspell
     - unused
@@ -46,7 +46,7 @@ linters:
     - ineffassign
     - stylecheck
     - gochecknoinits
-    - exportloopref
+    - copyloopvar
     - gocritic
     - nakedret
     - gosimple
@@ -55,6 +55,8 @@ linters:
   disable-all: true
 
 issues:
+  exclude-dirs:
+    - vendor
   exclude-rules:
     - text: "should have comment or be unexported"
       linters:

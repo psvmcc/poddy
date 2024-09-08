@@ -106,7 +106,7 @@ func StartServer(c *cli.Context) error {
 
 	e.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{
 		Skipper: skipperFn([]string{"/health"}),
-		Validator: func(key string, c echo.Context) (bool, error) {
+		Validator: func(key string, _ echo.Context) (bool, error) {
 			for i := range creds {
 				if creds[i].Token == key {
 					return true, nil

@@ -25,17 +25,14 @@ func ConfigMaps(c echo.Context) error {
 	}
 	var result [][]string
 	for i := range files {
-		file := []string{namespace, files[i]}
-		result = append(result, file)
+		result = append(result, []string{namespace, files[i]})
 	}
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	return c.JSON(http.StatusOK, result)
 }
 
 func ConfigMapGet(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 	configmap := c.Param("configmap")
 	configmapPath := fmt.Sprintf("%s/%s/configmaps/%s", cfg.DataPath, namespace, configmap)
@@ -54,7 +51,6 @@ func ConfigMapGet(c echo.Context) error {
 func ConfigMapDelete(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 	configmap := c.Param("configmap")
 	configmapPath := fmt.Sprintf("%s/%s/configmaps/%s", cfg.DataPath, namespace, configmap)
@@ -76,7 +72,6 @@ func ConfigMapDelete(c echo.Context) error {
 func ConfigMapCreate(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 	configmap := c.Param("configmap")
 	configmapPath := fmt.Sprintf("%s/%s/configmaps/%s", cfg.DataPath, namespace, configmap)
@@ -88,13 +83,13 @@ func ConfigMapCreate(c echo.Context) error {
 	if helpers.FileExists(configmapPath) {
 		returnCode = http.StatusOK
 	} else {
-		err := os.MkdirAll(fmt.Sprintf("%s/%s/configmaps", cfg.DataPath, namespace), 0755)
+		err := os.MkdirAll(fmt.Sprintf("%s/%s/configmaps", cfg.DataPath, namespace), 0o755)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to create directory"})
 		}
 	}
 
-	dst, err := os.OpenFile(configmapPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	dst, err := os.OpenFile(configmapPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0o644)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to open file"})
 	}

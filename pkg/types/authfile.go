@@ -16,12 +16,10 @@ type AuthFile []struct {
 func (c *AuthFile) Load(cfgFile string) {
 	yamlFile, err := os.ReadFile(cfgFile)
 	if err != nil {
-		log.Printf("Read config file error: %v", err)
-		os.Exit(1)
+		log.Fatalf("Read config file error: %v", err)
 	}
 	err = yaml.Unmarshal(yamlFile, &c)
 	if err != nil {
 		log.Fatalf("Unmarshal config file error: %v", err)
-		os.Exit(1)
 	}
 }
