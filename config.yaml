@@ -1,0 +1,27 @@
+---
+auth_file: auth.yaml
+data_path: _data
+roles:
+  role1:
+    namespace_access:
+      demo-rw: rw
+      demo-ro: ro
+  role2:
+    namespace_access:
+      demo-ro: rw
+  role3:
+    namespace_access:
+      demo: ro
+  role4:
+    namespaces_access:
+namespaces:
+  demo:
+    network: default
+  demo-rw:
+    network: default3
+  demo-ro:
+    network: default2
+    env:
+      test: value
+      qwe: true
+      zc: 123
