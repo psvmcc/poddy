@@ -23,10 +23,10 @@ clean:
 
 .PHONY: build
 build: clean
-	CGO_ENABLED=0 go build -mod=vendor -ldflags "-X poddy/pkg/types.Version=${TAG} -X poddy/pkg/types.Commit=${COMMIT}" -o build/poddy main.go
+	CGO_ENABLED=0 go build -tags remote -mod=vendor -ldflags "-X poddy/pkg/types.Version=${TAG} -X poddy/pkg/types.Commit=${COMMIT}" -o build/poddy main.go
 
 linux:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -mod=vendor -ldflags "-X poddy/pkg/types.Version=${TAG} -X poddy/pkg/types.Commit=${COMMIT}" -o build/poddy.linux main.go
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags remote -mod=vendor -ldflags "-X poddy/pkg/types.Version=${TAG} -X poddy/pkg/types.Commit=${COMMIT}" -o build/poddy.linux main.go
 
 run:
 	env DOCKER_SOCKET=/Users/ps/.local/share/containers/podman/machine/qemu/podman.sock go run main.go s

@@ -6,6 +6,7 @@ import (
 	"poddy/pkg/types"
 
 	"github.com/urfave/cli/v2"
+	"gopkg.in/yaml.v3"
 )
 
 func Info(c *cli.Context) error {
@@ -17,5 +18,9 @@ func Info(c *cli.Context) error {
 		log.Fatal(err)
 	}
 	fmt.Printf("Server version %s [%s]\n", info.Version, info.Commit)
+	fmt.Println()
+	yamlData, _ := yaml.Marshal(info.Podman)
+	fmt.Println(string(yamlData))
+
 	return nil
 }

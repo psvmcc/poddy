@@ -11,6 +11,9 @@ import (
 type Info struct {
 	Version string `json:"version"`
 	Commit  string `json:"commit"`
+	Podman  struct {
+		Version interface{} `json:"version" yaml:"Podman Engine"`
+	} `json:"podman"`
 }
 
 func (n *Info) Get(serverEndpoint, token string) error {
