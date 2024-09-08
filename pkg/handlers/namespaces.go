@@ -12,7 +12,6 @@ import (
 func Namespaces(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 
 	var result [][]string
 	if role == "admin" {
@@ -34,7 +33,6 @@ func Namespaces(c echo.Context) error {
 func NamespaceGet(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 
 	if cfg.Roles[role].NamespacesAccess[namespace] == "" && role != "admin" {

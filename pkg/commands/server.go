@@ -8,6 +8,7 @@ import (
 	"poddy/pkg/logging"
 	"poddy/pkg/types"
 	"poddy/pkg/victoriametrics"
+	"strconv"
 	"strings"
 	"time"
 
@@ -25,7 +26,7 @@ var (
 )
 
 func StartServer(c *cli.Context) error {
-	metrics.GetOrCreateCounter(fmt.Sprintf(`poddy_app_version{version="%s",commit="%s"}`, types.Version, types.Commit)).Inc()
+	metrics.GetOrCreateCounter(fmt.Sprintf("poddy_app_version{version=%q,commit=%q}", types.Version, types.Commit)).Inc()
 
 	cfg.Load(c.String("config"))
 	// fmt.Printf("%+v\n", cfg)
@@ -79,7 +80,7 @@ func StartServer(c *cli.Context) error {
 				return
 			}
 
-			metrics.GetOrCreateCounter(fmt.Sprintf(`poddy_requests{status="%d",user="%s",ip="%s"}`, res.Status, c.Get("user"), c.RealIP())).Inc()
+			metrics.GetOrCreateCounter(fmt.Sprintf("poddy_requests{status=%q,user=%q,ip=%q}", strconv.Itoa(res.Status), c.Get("user"), c.RealIP())).Inc()
 			message := fmt.Sprintf(
 				"%s %s requested from %s @%s with status %d in %s",
 				req.Method,

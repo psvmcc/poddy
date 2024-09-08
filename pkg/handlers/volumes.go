@@ -24,17 +24,14 @@ func Volumes(c echo.Context) error {
 	}
 	var result [][]string
 	for i := range files {
-		file := []string{namespace, files[i]}
-		result = append(result, file)
+		result = append(result, []string{namespace, files[i]})
 	}
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	return c.JSON(http.StatusOK, result)
 }
 
 func VolumeGet(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 	volume := c.Param("volume")
 	volumePath := fmt.Sprintf("%s/%s/volumes/%s", cfg.DataPath, namespace, volume)
@@ -51,7 +48,6 @@ func VolumeGet(c echo.Context) error {
 func VolumeDelete(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 	volume := c.Param("volume")
 	volumePath := fmt.Sprintf("%s/%s/volumes/%s", cfg.DataPath, namespace, volume)
@@ -73,7 +69,6 @@ func VolumeDelete(c echo.Context) error {
 func VolumeCreate(c echo.Context) error {
 	cfg := c.Get("cfg").(types.ConfigFile)
 	role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
 	namespace := c.Param("namespace")
 	volume := c.Param("volume")
 	volumePath := fmt.Sprintf("%s/%s/volumes/%s", cfg.DataPath, namespace, volume)

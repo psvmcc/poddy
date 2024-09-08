@@ -8,10 +8,6 @@ import (
 )
 
 func Info(c echo.Context) error {
-	// cfg := c.Get("cfg").(types.ConfigFile)
-	// role := c.Get("role").(string)
-	// logger := c.Get("logger").(*zap.SugaredLogger)
-
 	var result types.Info
 	result.Commit = types.Commit
 	result.Version = types.Version
