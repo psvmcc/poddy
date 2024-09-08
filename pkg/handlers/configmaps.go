@@ -90,7 +90,7 @@ func ConfigMapCreate(c echo.Context) error {
 		}
 	}
 
-	dst, err := os.OpenFile(filepath.Clean(configmapPath), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0o644)
+	dst, err := os.OpenFile(filepath.Clean(configmapPath), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0o600)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to open file"})
 	}
