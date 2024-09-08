@@ -80,7 +80,7 @@ func VolumeCreate(c echo.Context) error {
 	if helpers.FileExists(volumePath) {
 		returnCode = http.StatusOK
 	} else {
-		err := os.MkdirAll(volumePath, 0755)
+		err := os.MkdirAll(volumePath, 0o755)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to create directory"})
 		}

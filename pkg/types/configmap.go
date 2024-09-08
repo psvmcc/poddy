@@ -93,7 +93,7 @@ func (n *ConfigMap) Delete(serverEndpoint, token, namespace, name string) error 
 	}
 	req, err := http.NewRequest(http.MethodGet, url, http.NoBody)
 	if err != nil {
-		return fmt.Errorf("Failed to generate request: %s", err)
+		return fmt.Errorf("failed to generate request: %s", err)
 	}
 
 	req.Header.Set("User-Agent", fmt.Sprintf("poddy/%s (%s)", Version, Commit))

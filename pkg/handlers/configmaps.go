@@ -83,7 +83,7 @@ func ConfigMapCreate(c echo.Context) error {
 	if helpers.FileExists(configmapPath) {
 		returnCode = http.StatusOK
 	} else {
-		err := os.MkdirAll(fmt.Sprintf("%s/%s/configmaps", cfg.DataPath, namespace), 0o755)
+		err := os.MkdirAll(fmt.Sprintf("%s/%s/configmaps", cfg.DataPath, namespace), 0o750)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to create directory"})
 		}

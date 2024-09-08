@@ -5,11 +5,10 @@ import (
 	"encoding/hex"
 	"io"
 	"os"
+	"path/filepath"
 )
 
-func GetAllFiles(dir string) ([]string, error) {
-	var files []string
-
+func GetAllFiles(dir string) (files []string, err error) {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
 		return files, err
@@ -34,7 +33,7 @@ func FileExists(filename string) bool {
 }
 
 func GetSHA256(filePath string) (string, error) {
-	file, err := os.Open(filePath)
+	file, err := os.Open(filepath.Clean(filePath))
 	if err != nil {
 		return "", err
 	}

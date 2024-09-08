@@ -29,9 +29,7 @@ func StartServer(c *cli.Context) error {
 	metrics.GetOrCreateCounter(fmt.Sprintf("poddy_app_version{version=%q,commit=%q}", types.Version, types.Commit)).Inc()
 
 	cfg.Load(c.String("config"))
-	// fmt.Printf("%+v\n", cfg)
 	creds.Load(cfg.AuthFile)
-	// fmt.Printf("%+v\n", creds)
 
 	logger := logging.Build(c.Bool("verbose"))
 	zap.ReplaceGlobals(logger)
@@ -77,7 +75,7 @@ func StartServer(c *cli.Context) error {
 			stop := time.Now()
 
 			if req.RequestURI == "/health" {
-				return
+				return nil
 			}
 
 			metrics.GetOrCreateCounter(fmt.Sprintf("poddy_requests{status=%q,user=%q,ip=%q}", strconv.Itoa(res.Status), c.Get("user"), c.RealIP())).Inc()
@@ -101,7 +99,7 @@ func StartServer(c *cli.Context) error {
 				logger.Named("req").Error(message)
 			}
 
-			return
+			return nil
 		}
 	})
 

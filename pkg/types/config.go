@@ -3,6 +3,7 @@ package types
 import (
 	"log"
 	"os"
+	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
@@ -20,7 +21,7 @@ type ConfigFile struct {
 }
 
 func (c *ConfigFile) Load(cfgFile string) {
-	yamlFile, err := os.ReadFile(cfgFile)
+	yamlFile, err := os.ReadFile(filepath.Clean(cfgFile))
 	if err != nil {
 		log.Fatalf("Read config file error: %v", err)
 	}
