@@ -17,7 +17,7 @@ func (n *Namespaces) Get(serverEndpoint, token string) error {
 	}
 	req, err := http.NewRequest(http.MethodGet, url, http.NoBody)
 	if err != nil {
-		return fmt.Errorf("Failed to generate request: %s", err)
+		return fmt.Errorf("failed to generate request: %s", err)
 	}
 
 	req.Header.Set("User-Agent", fmt.Sprintf("poddy/%s (%s)", Version, Commit))
@@ -26,11 +26,11 @@ func (n *Namespaces) Get(serverEndpoint, token string) error {
 
 	res, err := client.Do(req)
 	if err != nil {
-		return fmt.Errorf("Failed to send request: %s", err)
+		return fmt.Errorf("failed to send request: %s", err)
 	}
 
 	if res.StatusCode != 200 {
-		return fmt.Errorf("Wrong exit code: %d", res.StatusCode)
+		return fmt.Errorf("wrong exit code: %d", res.StatusCode)
 	}
 	if res.Body != nil {
 		defer res.Body.Close()
@@ -38,12 +38,12 @@ func (n *Namespaces) Get(serverEndpoint, token string) error {
 
 	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
-		return fmt.Errorf("Failed to get request: %s", err)
+		return fmt.Errorf("failed to get request: %s", err)
 	}
 
 	jsonErr := json.Unmarshal(body, &n)
 	if jsonErr != nil {
-		return fmt.Errorf("Failed to unmarshal request: %s", err)
+		return fmt.Errorf("failed to unmarshal request: %s", err)
 	}
 	return nil
 }
@@ -62,7 +62,7 @@ func (n *Namespace) Get(serverEndpoint, token, name string) error {
 	}
 	req, err := http.NewRequest(http.MethodGet, url, http.NoBody)
 	if err != nil {
-		return fmt.Errorf("Failed to generate request: %s", err)
+		return fmt.Errorf("failed to generate request: %s", err)
 	}
 
 	req.Header.Set("User-Agent", fmt.Sprintf("poddy/%s (%s)", Version, Commit))
@@ -71,11 +71,11 @@ func (n *Namespace) Get(serverEndpoint, token, name string) error {
 
 	res, err := client.Do(req)
 	if err != nil {
-		return fmt.Errorf("Failed to send request: %s", err)
+		return fmt.Errorf("failed to send request: %s", err)
 	}
 
 	if res.StatusCode != 200 {
-		return fmt.Errorf("Wrong exit code: %d", res.StatusCode)
+		return fmt.Errorf("wrong exit code: %d", res.StatusCode)
 	}
 	if res.Body != nil {
 		defer res.Body.Close()
@@ -83,12 +83,12 @@ func (n *Namespace) Get(serverEndpoint, token, name string) error {
 
 	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
-		return fmt.Errorf("Failed to get request: %s", err)
+		return fmt.Errorf("failed to get request: %s", err)
 	}
 
 	jsonErr := json.Unmarshal(body, &n)
 	if jsonErr != nil {
-		return fmt.Errorf("Failed to unmarshal request: %s", err)
+		return fmt.Errorf("failed to unmarshal request: %s", err)
 	}
 	return nil
 }

@@ -22,7 +22,7 @@ func Volumes(c echo.Context) error {
 	if err != nil && files == nil {
 		return c.NoContent(http.StatusNotFound)
 	}
-	var result [][]string
+	result := make([][]string, len(files))
 	for i := range files {
 		result = append(result, []string{namespace, files[i]})
 	}
@@ -80,7 +80,7 @@ func VolumeCreate(c echo.Context) error {
 	if helpers.FileExists(volumePath) {
 		returnCode = http.StatusOK
 	} else {
-		err := os.MkdirAll(volumePath, 0o755)
+		err := os.MkdirAll(volumePath, 0o750)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to create directory"})
 		}

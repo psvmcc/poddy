@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"poddy/pkg/helpers"
 	"poddy/pkg/types"
 
@@ -23,7 +24,7 @@ func ConfigMaps(c echo.Context) error {
 	if err != nil && files == nil {
 		return c.NoContent(http.StatusNotFound)
 	}
-	var result [][]string
+	result := make([][]string, len(files))
 	for i := range files {
 		result = append(result, []string{namespace, files[i]})
 	}
@@ -89,7 +90,7 @@ func ConfigMapCreate(c echo.Context) error {
 		}
 	}
 
-	dst, err := os.OpenFile(configmapPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0o644)
+	dst, err := os.OpenFile(filepath.Clean(configmapPath), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0o644)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Unable to open file"})
 	}
